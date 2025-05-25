@@ -18,6 +18,7 @@ const Login = () => {
       toast.error("Vui lòng nhập đầy đủ thông tin");
       return;
     }
+
     try {
       const request = await fetch(
         `${import.meta.env.VITE_BASE_API}/auth/login`,
@@ -31,16 +32,17 @@ const Login = () => {
       );
 
       if (!request.ok) {
-        toast.error("Đăng nhập thất bại");
+        toast.error("Đăng nhập thất bại!");
         return;
       }
 
       const response = await request.json();
-      localStorage.setItem("user", response);
-      toast.success("Đăng nhập thành công");
+      localStorage.setItem("user", JSON.stringify(response));
+      toast.success("Đăng nhập thành công!");
       navigate("/");
     } catch (error) {
-      toast.error(error.message || "Đăng nhập thất bại!");
+      console.error("[LOGIN ERROR]", error);
+      toast.error("Đăng nhập thất bại!");
     }
   };
 
