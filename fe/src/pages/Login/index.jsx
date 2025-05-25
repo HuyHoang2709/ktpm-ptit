@@ -1,37 +1,55 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Card from "../../components/Card";
 import FormControl from "../../components/FormControl";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate input
-    if (!username) toast.error("Vui lòng nhập tên đăng nhập!");
-    else if (!password) toast.error("Vui lòng nhập mật khẩu!");
-    else {
-      // Check input
-      if (username === "nva123" && password === "123456") {
-        toast.success("Đăng nhập thành công!");
+    if (!username || !password) {
+      toast.error("Vui lòng nhập đầy đủ thông tin");
+      return;
+    }
+    try {
+      const request = await fetch(
+        `${import.meta.env.VITE_BASE_API}/auth/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, password }),
+        }
+      );
 
-        // Save user info to local storage
-        localStorage.setItem("user", JSON.stringify({ id: 1, ten: "Demo" }));
-
-        // Redirect to home page
-        navigate("/");
-      } else {
-        toast.error("Tên đăng nhập hoặc mật khẩu không đúng!");
+      if (!request.ok) {
+        toast.error("Đăng nhập thất bại");
+        return;
       }
+
+      const response = await request.json();
+      localStorage.setItem("user", response);
+      toast.success("Đăng nhập thành công");
+      navigate("/");
+    } catch (error) {
+      toast.error(error.message || "Đăng nhập thất bại!");
     }
   };
+
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      navigate("/");
+    }
+  }, [navigate]);
 
   return (
     <div className="flex items-center justify-center h-screen bg-linear-to-r from-cyan-500 to-blue-500">
