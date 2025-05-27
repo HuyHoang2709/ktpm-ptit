@@ -14,7 +14,7 @@ const Header = ({ user }) => {
       <p>Hi, {user.info.hoten}!</p>
       <button
         onClick={handleLogout}
-        className="text-blue-600 font-semibold cursor-pointer"
+        className="text-red-600 font-semibold cursor-pointer"
       >
         Đăng xuất
       </button>

@@ -3,13 +3,12 @@ import { useState } from "react";
 const Input = ({ id, type, placeholder, value, onChange }) => {
   const [inputType, setInputType] = useState(type);
 
-  const handleShowPassword = () => {
+  const handleShowPassword = () =>
     setInputType((prevType) => (prevType === "password" ? "text" : "password"));
-  };
 
   return (
     <div
-      className={`border flex justify-between gap-2 items-center px-2 border-slate-200 outline-blue-300 w-full rounded-lg`}
+      className={`border flex justify-between gap-2 items-center px-2 border-slate-300 w-full rounded-md`}
     >
       <input
         id={id}

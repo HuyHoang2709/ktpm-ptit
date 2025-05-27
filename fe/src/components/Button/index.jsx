@@ -1,4 +1,14 @@
-const Button = ({ children, onClick, type, variants, className }) => {
+import { Link } from "react-router-dom";
+
+const Button = ({
+  children,
+  onClick,
+  type,
+  variants,
+  className = "",
+  isLink = false,
+  link = "",
+}) => {
   let styles = "";
   if (variants == "primary") {
     styles = "bg-blue-500 hover:bg-blue-600 text-white";
@@ -10,9 +20,16 @@ const Button = ({ children, onClick, type, variants, className }) => {
     styles = "bg-green-600 hover:bg-green-700 text-white";
   }
 
-  return (
+  return isLink ? (
+    <Link
+      to={link}
+      className={`py-2 px-4 rounded-md transition-all ${styles} ${className}`}
+    >
+      {children}
+    </Link>
+  ) : (
     <button
-      className={`py-2 px-4 text-md rounded-md transition-all cursor-pointer ${styles} ${className}`}
+      className={`py-2 px-4 rounded-md transition-all cursor-pointer ${styles} ${className}`}
       onClick={onClick}
       type={type}
     >

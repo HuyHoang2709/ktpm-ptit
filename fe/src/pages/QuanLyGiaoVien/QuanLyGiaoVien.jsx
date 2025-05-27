@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Title from "../../components/Title";
 import toast from "react-hot-toast";
 import Table from "../../components/Table";
@@ -6,6 +7,39 @@ import Button from "../../components/Button";
 
 const QuanLyGiaoVien = () => {
   const [listGV, setListGV] = useState();
+
+  const handleDelete = async (gv) => {
+    console.log(gv);
+    const confirmDelete = window.confirm(
+      "Bạn chắc chắn muốn xóa giáo viên này?"
+    );
+    if (!confirmDelete) return;
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BASE_API}/giaovien/${gv.id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.status == 404) {
+        toast.error("Không tìm thấy giáo viên!");
+        return;
+      }
+      if (response.status !== 200) {
+        throw new Error("Failed to delete teacher");
+      }
+
+      toast.success("Xóa giáo viên thành công!");
+      setListGV((prevList) => prevList.filter((item) => item.id !== gv.id));
+    } catch (error) {
+      toast.error("Không thể xóa giáo viên!");
+      console.error("[TEACHER MANAGEMENT]", error);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,8 +70,12 @@ const QuanLyGiaoVien = () => {
             trinhdo: item.trinhdo,
             chuyenmon: item.chuyenmon,
             actions: (
-              <>
-                <button className="text-blue-500 mr-2 hover:cursor-pointer">
+              <div className="flex gap-2 justify-center">
+                <Link
+                  to="/teachers/edit"
+                  state={{ giaovien: item }}
+                  className="text-blue-500"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -52,8 +90,11 @@ const QuanLyGiaoVien = () => {
                       d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
                     />
                   </svg>
-                </button>
-                <button className="text-red-500 hover:cursor-pointer">
+                </Link>
+                <button
+                  onClick={() => handleDelete(item)}
+                  className="text-red-500"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -69,7 +110,7 @@ const QuanLyGiaoVien = () => {
                     />
                   </svg>
                 </button>
-              </>
+              </div>
             ),
           }))
         );
@@ -83,11 +124,18 @@ const QuanLyGiaoVien = () => {
   }, []);
 
   return (
-    <div>
-      <Title text="Quản lý giáo viên" />
-      <Button variants="add" className="mb-4 ml-auto">
-        Thêm giáo viên mới
-      </Button>
+    <>
+      <Title text="Quản lý giáo viên" className="mb-10" />
+      <div className="flex justify-end">
+        <Button
+          isLink={true}
+          link="/teachers/new"
+          variants="add"
+          className="mb-4"
+        >
+          Thêm giáo viên mới
+        </Button>
+      </div>
       <Table
         headers={[
           "ID",
@@ -102,7 +150,7 @@ const QuanLyGiaoVien = () => {
         ]}
         rows={listGV}
       />
-    </div>
+    </>
   );
 };
 

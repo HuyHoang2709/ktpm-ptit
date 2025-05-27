@@ -41,7 +41,7 @@ export const Sidebar = ({ user }) => {
         {role === "quanly" && (
           <>
             <Link
-              to="/quanlygiaovien"
+              to="/teachers"
               className={`py-3 px-4 rounded ${
                 active === 2 && "bg-blue-500 text-white"
               }`}

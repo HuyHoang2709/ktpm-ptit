@@ -4,6 +4,8 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Loading from "./components/Loading";
 import QuanLyGiaoVien from "./pages/QuanLyGiaoVien/QuanLyGiaoVien";
+import ThemGiaoVien from "./pages/QuanLyGiaoVien/ThemGiaoVien";
+import SuaGiaoVien from "./pages/QuanLyGiaoVien/SuaGiaoVien";
 
 const App = () => {
   return (
@@ -13,7 +15,9 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<Home />}>
             <Route path="/loading" element={<Loading />} />
-            <Route path="/quanlygiaovien" element={<QuanLyGiaoVien />} />
+            <Route path="/teachers" element={<QuanLyGiaoVien />} />
+            <Route path="/teachers/new" element={<ThemGiaoVien />} />
+            <Route path="/teachers/edit" element={<SuaGiaoVien />} />
           </Route>
         </Routes>
       </BrowserRouter>
