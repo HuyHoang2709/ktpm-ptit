@@ -4,6 +4,7 @@ import { Sidebar } from "./Sidebar";
 import Loading from "../../components/Loading";
 import Header from "./Header";
 import Card from "../../components/Card";
+import Title from "../../components/Title";
 
 const Home = () => {
   const [user, setUser] = useState(null);
@@ -21,7 +22,7 @@ const Home = () => {
       const parsedUser = JSON.parse(userStore);
       setUser(parsedUser);
     } catch (error) {
-      console.error("Error parsing user data:", error);
+      console.error("[HOME]", error);
       navigate("/login");
     } finally {
       setLoading(false);
@@ -37,9 +38,7 @@ const Home = () => {
       <div className="mt-16 ml-auto w-5/6 p-6">
         {location.pathname === "/" ? (
           <Card className="max-w-1/2 mx-auto">
-            <h2 className="text-center text-2xl font-bold mb-4">
-              Thông tin người dùng
-            </h2>
+            <Title text="Thông tin người dùng" className="mb-4" />
             <div className="flex flex-col gap-2">
               <p>
                 <b>Họ tên:</b> {user.info.hoten}

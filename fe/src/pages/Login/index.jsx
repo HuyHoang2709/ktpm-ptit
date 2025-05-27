@@ -5,6 +5,7 @@ import FormControl from "../../components/FormControl";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import toast from "react-hot-toast";
+import Title from "../../components/Title";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -20,7 +21,7 @@ const Login = () => {
     }
 
     try {
-      const request = await fetch(
+      const response = await fetch(
         `${import.meta.env.VITE_BASE_API}/auth/login`,
         {
           method: "POST",
@@ -31,17 +32,17 @@ const Login = () => {
         }
       );
 
-      if (!request.ok) {
+      if (!response.ok) {
         toast.error("Đăng nhập thất bại!");
         return;
       }
 
-      const response = await request.json();
-      localStorage.setItem("user", JSON.stringify(response));
+      const data = await response.json();
+      localStorage.setItem("user", JSON.stringify(data));
       toast.success("Đăng nhập thành công!");
       navigate("/");
     } catch (error) {
-      console.error("[LOGIN ERROR]", error);
+      console.error("[LOGIN]", error);
       toast.error("Đăng nhập thất bại!");
     }
   };
@@ -56,7 +57,7 @@ const Login = () => {
   return (
     <div className="flex items-center justify-center h-screen bg-linear-to-r from-cyan-500 to-blue-500">
       <Card className="w-[480px]">
-        <h1 className="text-2xl text-center font-semibold mb-10">Đăng nhập</h1>
+        <Title text="Đăng nhập" className="mb-10" />
         <form onSubmit={handleSubmit}>
           <FormControl>
             <label htmlFor="login-username">Tên đăng nhập:</label>

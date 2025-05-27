@@ -31,7 +31,7 @@ public class QuanLyGiaoVienController {
         // Lưu giáo viên mới vào DB
         try {
             GiaoVien newGV = qlgvSv.createGiaoVien(gv);
-            return ResponseEntity.ok(newGV);
+            return ResponseEntity.ok().body(newGV);
         } catch (Exception e) {
             log.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -39,9 +39,9 @@ public class QuanLyGiaoVienController {
     }
 
     @GetMapping("/all")
-    public List<GiaoVien> timTatCaGiaoVien() {
+    public ResponseEntity<?> timTatCaGiaoVien() {
         List<GiaoVien> listGV = qlgvSv.findAllGiaoVien();
-        return listGV.stream().peek(gv -> gv.setPassword("")).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listGV);
     }
 
     @PutMapping("/")
@@ -62,7 +62,7 @@ public class QuanLyGiaoVienController {
         // Thực hiện cập nhật trong DB
         try {
             GiaoVien updatedGV = qlgvSv.updateGiaoVien(gv);
-            return ResponseEntity.ok(updatedGV);
+            return ResponseEntity.ok().body(updatedGV);
         } catch (Exception e) {
             log.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

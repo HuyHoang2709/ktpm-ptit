@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Title from "../../components/Title";
 
 export const Sidebar = ({ user }) => {
   const [active, setActive] = useState(1);
@@ -12,25 +13,25 @@ export const Sidebar = ({ user }) => {
   return (
     <div className="fixed w-1/6 top-0 left-0 bottom-0 bg-slate-200">
       <div className="h-16 flex items-center p-6">
-        <h1 className=" text-2xl font-semibold text-slate-900">
-          Dashboard {user.role === "quanly" ? "Quản lý" : "Giáo viên"}
-        </h1>
+        <Title
+          text={`Dashboard ${user.role === "quanly" ? "Quản lý" : "Giáo viên"}`}
+        />
       </div>
       <nav className="py-6 px-3 flex flex-col gap-2">
         <Link
           to="/"
           className={`py-3 px-4 rounded transition-all ${
-            active === 1 && "bg-blue-400"
+            active === 1 && "bg-blue-500 text-white"
           }`}
           onClick={() => setActive(1)}
         >
-          Home
+          Trang chủ
         </Link>
         {role === "giaovien" && (
           <Link
             to="/"
-            className={`py-3 px-4 rounded transition-all ${
-              active === 2 && "bg-blue-400"
+            className={`py-3 px-4 rounded ${
+              active === 2 && "bg-blue-500 text-white"
             }`}
             onClick={() => setActive(2)}
           >
@@ -40,15 +41,19 @@ export const Sidebar = ({ user }) => {
         {role === "quanly" && (
           <>
             <Link
-              to="/"
-              className={`py-3 px-4 rounded ${active === 2 && "bg-blue-400"}`}
+              to="/quanlygiaovien"
+              className={`py-3 px-4 rounded ${
+                active === 2 && "bg-blue-500 text-white"
+              }`}
               onClick={() => setActive(2)}
             >
               Quản lý giáo viên
             </Link>
             <Link
               to="/"
-              className={`py-3 px-4 rounded ${active === 3 && "bg-blue-400"}`}
+              className={`py-3 px-4 rounded ${
+                active === 3 && "bg-blue-500 text-white"
+              }`}
               onClick={() => setActive(3)}
             >
               Lên lịch dạy

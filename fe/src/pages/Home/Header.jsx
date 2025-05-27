@@ -10,7 +10,7 @@ const Header = ({ user }) => {
   };
 
   return (
-    <div className="w-5/6 fixed top-0 right-0 shadow-sm h-16 flex px-6 justify-between items-center">
+    <div className="w-5/6 fixed top-0 right-0 shadow-sm h-16 flex px-6 justify-between items-center bg-white z-10">
       <p>Hi, {user.info.hoten}!</p>
       <button
         onClick={handleLogout}
