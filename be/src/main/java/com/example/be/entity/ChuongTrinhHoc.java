@@ -19,7 +19,4 @@ public class ChuongTrinhHoc {
     private String ten;
 
     private String mota;
-
-    @OneToMany(mappedBy = "chuongtrinhhoc")
-    private Set<LopHoc> lophoc;
 }

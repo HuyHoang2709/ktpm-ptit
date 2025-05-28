@@ -20,7 +20,4 @@ public class CoSo {
 
     @Column(nullable = false)
     private String diachi;
-
-    @OneToMany(mappedBy = "coso")
-    private Set<PhongHoc> phonghoc;
 }

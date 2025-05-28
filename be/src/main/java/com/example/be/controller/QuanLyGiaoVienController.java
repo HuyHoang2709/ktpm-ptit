@@ -20,7 +20,7 @@ public class QuanLyGiaoVienController {
     @Autowired
     private QuanLyGiaoVienService qlgvSv;
 
-    @PostMapping("/")
+    @PostMapping("/new")
     public ResponseEntity<?> taoGiaoVienMoi(@RequestBody GiaoVien gv) {
         // Kiểm tra username mới đã được sử dụng bởi người khác hay chưa
         String username = gv.getUsername();
