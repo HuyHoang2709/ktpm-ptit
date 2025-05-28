@@ -52,7 +52,7 @@ const ChonLop = () => {
                 state={{ lophoc: lop }}
                 className="text-blue-600 font-semibold"
               >
-                Xem
+                Chọn
               </Link>
             ),
           }));
@@ -64,17 +64,12 @@ const ChonLop = () => {
     fetchData();
   }, []);
 
-  // const test = () => {
-  //   console.log(dsDangKy);
-  // };
-
   return (
     <>
-      {/* <button onClick={test}>Xem data</button> */}
       <Title text="Đăng ký dạy" className="mb-10" />
       <h2 className="mb-4 text-lg">Danh sách lớp đang mở:</h2>
       <Table
-        headers={["ID", "Tên lớp", "Tổng số lớp", "Chi tiết"]}
+        headers={["ID", "Tên lớp", "Tổng số lớp", "Xem chi tiết"]}
         rows={dsLop}
       />
       <h2 className="mb-4 text-lg">Danh sách lớp đã đăng ký:</h2>
@@ -84,7 +79,10 @@ const ChonLop = () => {
           id: dk.lophoc.id,
           ten: dk.lophoc.ten,
           mota: dk.lophoc.mota,
-          hocphi: dk.lophoc.hocphi,
+          hocphi: new Intl.NumberFormat("de-DE", {
+            style: "currency",
+            currency: "VND",
+          }).format(dk.lophoc.hocphi),
           chuongtrinh: dk.lophoc.chuongtrinhhoc.ten,
         }))}
       />

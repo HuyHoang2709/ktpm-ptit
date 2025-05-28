@@ -37,11 +37,11 @@ public class DangKyDayService {
     }
 
     public boolean existGiaoVien(GiaoVien gv) {
-        return gvRepo.findById(gv.getId()).isPresent();
+        return gvRepo.existsById(gv.getId());
     }
 
     public boolean existLopHoc(LopHoc lh) {
-        return lhRepo.findById(lh.getId()).isPresent();
+        return lhRepo.existsById(lh.getId());
     }
 
     public boolean existDangKyDay(GiaoVien gv, LopHoc lop) {
