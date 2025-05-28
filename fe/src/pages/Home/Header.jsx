@@ -1,7 +1,7 @@
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-const Header = ({ user }) => {
+export const Header = ({ user }) => {
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -21,5 +21,3 @@ const Header = ({ user }) => {
     </div>
   );
 };
-
-export default Header;

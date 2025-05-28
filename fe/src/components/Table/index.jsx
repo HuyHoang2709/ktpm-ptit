@@ -1,6 +1,6 @@
 const Table = ({ headers, rows }) => {
   return (
-    <table className="table-auto w-full border-collapse text-lg">
+    <table className="table-auto w-full border-collapse text-lg mb-6">
       <thead>
         <tr className="bg-blue-500">
           {headers.map((header, index) => (

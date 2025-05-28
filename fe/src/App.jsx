@@ -6,6 +6,8 @@ import Loading from "./components/Loading";
 import QuanLyGiaoVien from "./pages/QuanLyGiaoVien/QuanLyGiaoVien";
 import ThemGiaoVien from "./pages/QuanLyGiaoVien/ThemGiaoVien";
 import SuaGiaoVien from "./pages/QuanLyGiaoVien/SuaGiaoVien";
+import ChonLop from "./pages/DangKyDay/ChonLop";
+import ChiTietLop from "./pages/DangKyDay/ChiTietLop";
 
 const App = () => {
   return (
@@ -18,6 +20,8 @@ const App = () => {
             <Route path="/teachers" element={<QuanLyGiaoVien />} />
             <Route path="/teachers/new" element={<ThemGiaoVien />} />
             <Route path="/teachers/edit" element={<SuaGiaoVien />} />
+            <Route path="/teach-register" element={<ChonLop />} />
+            <Route path="/teach-register/info" element={<ChiTietLop />} />
           </Route>
         </Routes>
       </BrowserRouter>
