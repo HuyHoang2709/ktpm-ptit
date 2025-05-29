@@ -13,12 +13,11 @@ const ChiTietLop = () => {
   const [remainingSlots, setRemainingSlots] = useState();
 
   useEffect(() => {
-    console.log(lophoc.solop);
     const fetchData = async () => {
       try {
         // Lấy danh sách đăng ký dạy của lớp hiện tại
         const response = await fetch(
-          `${import.meta.env.VITE_BASE_API}/dangkyday/lop`,
+          `${import.meta.env.VITE_BASE_API}/dangkyday/lophoc`,
           {
             method: "POST",
             headers: {
@@ -29,7 +28,6 @@ const ChiTietLop = () => {
         );
         if (!response.ok) throw new Error("Failed to fetch registration data");
         const data = await response.json();
-        console.log(data.length);
         setRemainingSlots(() => lophoc.solop - data.length);
       } catch (error) {
         console.error("Error fetching registration data:", error);

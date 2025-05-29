@@ -36,7 +36,7 @@ const SuaGiaoVien = () => {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BASE_API}/giaovien/`,
+        `${import.meta.env.VITE_BASE_API}/giaovien/edit`,
         {
           method: "PUT",
           headers: {

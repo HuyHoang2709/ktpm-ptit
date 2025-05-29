@@ -11,7 +11,7 @@ const ChonLop = () => {
     const giaovien = JSON.parse(localStorage.getItem("user")).info;
     const fetchData = async () => {
       try {
-        // Lấy danh sách đăng ký dạy
+        // Lấy danh sách đăng ký dạy của giáo viên
         const response1 = await fetch(
           `${import.meta.env.VITE_BASE_API}/dangkyday/giaovien`,
           {
@@ -28,7 +28,7 @@ const ChonLop = () => {
 
         // Lấy danh sách lớp học
         const response2 = await fetch(
-          `${import.meta.env.VITE_BASE_API}/dangkyday/lophoc`,
+          `${import.meta.env.VITE_BASE_API}/dangkyday/dslop`,
           {
             method: "GET",
             headers: {

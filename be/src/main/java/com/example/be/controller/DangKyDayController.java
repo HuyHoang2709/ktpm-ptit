@@ -21,7 +21,7 @@ public class DangKyDayController {
     @Autowired
     private DangKyDayService dkdSv;
 
-    @GetMapping("/lophoc")
+    @GetMapping("/dslop")
     public ResponseEntity<?> timTatCaLopHoc() {
         return ResponseEntity.ok().body(dkdSv.findAllLopHoc());
     }
@@ -31,7 +31,7 @@ public class DangKyDayController {
         return ResponseEntity.ok().body(dkdSv.findDKDByGV(giaoVien));
     }
 
-    @PostMapping("/lop")
+    @PostMapping("/lophoc")
     public ResponseEntity<?> timDangKyDayTheoLopHoc(@RequestBody LopHoc lopHoc) {
         return ResponseEntity.ok().body(dkdSv.findDKDByLH(lopHoc));
     }

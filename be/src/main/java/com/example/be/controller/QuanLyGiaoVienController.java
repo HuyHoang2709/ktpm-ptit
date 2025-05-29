@@ -43,7 +43,7 @@ public class QuanLyGiaoVienController {
         return ResponseEntity.ok().body(qlgvSv.findAllGiaoVien());
     }
 
-    @PutMapping("/")
+    @PutMapping("/edit")
     public ResponseEntity<?> suaGiaoVien(@RequestBody GiaoVien gv) {
         // Kiểm tra xem có giáo viên cần sửa trong DB chưa
         int id = gv.getId();
