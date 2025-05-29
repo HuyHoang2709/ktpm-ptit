@@ -93,7 +93,7 @@ const QuanLyGiaoVien = () => {
                 </Link>
                 <button
                   onClick={() => handleDelete(item)}
-                  className="text-red-500"
+                  className="text-red-500 cursor-pointer"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

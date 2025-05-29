@@ -40,8 +40,7 @@ public class QuanLyGiaoVienController {
 
     @GetMapping("/all")
     public ResponseEntity<?> timTatCaGiaoVien() {
-        List<GiaoVien> listGV = qlgvSv.findAllGiaoVien();
-        return ResponseEntity.ok().body(listGV);
+        return ResponseEntity.ok().body(qlgvSv.findAllGiaoVien());
     }
 
     @PutMapping("/")

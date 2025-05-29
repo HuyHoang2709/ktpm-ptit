@@ -10,6 +10,7 @@ import ChonLop from "./pages/DangKyDay/ChonLop";
 import ChiTietLop from "./pages/DangKyDay/ChiTietLop";
 import ChonGiaoVien from "./pages/LenLichDay/ChonGiaoVien";
 import DanhSachLichDay from "./pages/LenLichDay/DanhSachLichDay";
+import ThemLichDay from "./pages/LenLichDay/ThemLichDay";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
             <Route path="/teach-register/info" element={<ChiTietLop />} />
             <Route path="/schedule/teacher" element={<ChonGiaoVien />} />
             <Route path="/schedule/view" element={<DanhSachLichDay />} />
+            <Route path="/schedule/new" element={<ThemLichDay />} />
           </Route>
         </Routes>
       </BrowserRouter>

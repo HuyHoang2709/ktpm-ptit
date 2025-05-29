@@ -33,7 +33,6 @@ const SuaGiaoVien = () => {
       username: username,
       password: password,
     };
-    console.log(data);
 
     try {
       const response = await fetch(
@@ -69,7 +68,6 @@ const SuaGiaoVien = () => {
   };
 
   useEffect(() => {
-    console.log(giaovien);
     setName(giaovien.hoten);
     setBirth(giaovien.ngaysinh);
     setPhone(giaovien.sdt);

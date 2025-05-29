@@ -8,6 +8,7 @@ const Button = ({
   className = "",
   isLink = false,
   link = "",
+  state = null,
 }) => {
   let styles = "";
   if (variants == "primary") {
@@ -24,6 +25,7 @@ const Button = ({
     <Link
       to={link}
       className={`py-2 px-4 rounded-md transition-all ${styles} ${className}`}
+      state={state}
     >
       {children}
     </Link>

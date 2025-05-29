@@ -57,7 +57,7 @@ public class DangKyDayController {
         }
 
         // Kiểm tra xem đã tồn tại đăng ký dạy chưa
-        if (dkdSv.existDangKyDay(gv, lop)) {
+        if (dkdSv.existDangKyDay(dangKyDay)) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Đã đăng ký dạy lớp này");
         }
 
