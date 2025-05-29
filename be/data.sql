@@ -106,7 +106,7 @@ CREATE TABLE `dangkyday` (
   KEY `FKrx482sp572reeuxauavb9c12f` (`lophocid`),
   CONSTRAINT `FKj2sp4ftkxfwp7gi37xwyp6263` FOREIGN KEY (`giaovienid`) REFERENCES `giaovien` (`id`),
   CONSTRAINT `FKrx482sp572reeuxauavb9c12f` FOREIGN KEY (`lophocid`) REFERENCES `lophoc` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -115,6 +115,7 @@ CREATE TABLE `dangkyday` (
 
 LOCK TABLES `dangkyday` WRITE;
 /*!40000 ALTER TABLE `dangkyday` DISABLE KEYS */;
+INSERT INTO `dangkyday` VALUES (1,1,1),(2,1,2),(3,2,1),(4,5,1);
 /*!40000 ALTER TABLE `dangkyday` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -136,7 +137,7 @@ CREATE TABLE `giaovien` (
   `chuyenmon` varchar(255) DEFAULT NULL,
   `trinhdo` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -145,7 +146,7 @@ CREATE TABLE `giaovien` (
 
 LOCK TABLES `giaovien` WRITE;
 /*!40000 ALTER TABLE `giaovien` DISABLE KEYS */;
-INSERT INTO `giaovien` VALUES (1,'hoangbh@example.com','Bùi Huy Hoàng','2003-09-27','0941175966','teacher001','gv001','IELTS','Cử nhân');
+INSERT INTO `giaovien` VALUES (1,'bhhoang@example.com','Bùi Huy Hoàng','2003-09-27','0941175966','teacher001','gv001','IELTS','Đại học'),(2,'nva@gmail.com','Nguyễn Văn A','2000-05-27','0123456888','teacher002','gv002','TOEIC','Đại học'),(5,'nvb@gmail.com','Nguyễn Văn B','2025-05-01','0123456789','teacher003','gv003','IELTS','Đại học'),(6,'nvc@gmail.com','Nguyễn Văn C','2025-04-01','0987654321','teacher004','gv004','IELTS, TOEIC','Đại học');
 /*!40000 ALTER TABLE `giaovien` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -169,7 +170,7 @@ CREATE TABLE `lichday` (
   CONSTRAINT `FK1t4canxyl2jj7i508k5lxrs5n` FOREIGN KEY (`buoihocid`) REFERENCES `buoihoc` (`id`),
   CONSTRAINT `FK4lgavm3ixcpusmqrjkdvuh3xv` FOREIGN KEY (`dangkydayid`) REFERENCES `dangkyday` (`id`),
   CONSTRAINT `FKgw92gybttbqdtn2fvqll7xkc8` FOREIGN KEY (`phonghocid`) REFERENCES `phonghoc` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -178,6 +179,7 @@ CREATE TABLE `lichday` (
 
 LOCK TABLES `lichday` WRITE;
 /*!40000 ALTER TABLE `lichday` DISABLE KEYS */;
+INSERT INTO `lichday` VALUES (1,'2025-05-28',1,1,1),(2,'2025-05-29',1,1,1),(3,'2025-05-29',2,2,2);
 /*!40000 ALTER TABLE `lichday` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -277,4 +279,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-25 16:29:20
+-- Dump completed on 2025-05-29 23:33:07
