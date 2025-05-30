@@ -32,7 +32,12 @@ public class LenLichDayService {
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public boolean existGiaoVien(GiaoVien gv) {
-        return gvRepo.existsById(gv.getId());
+        Example<GiaoVien> example = Example.of(gv,
+                ExampleMatcher.matching()
+                        .withIgnoreCase(false)
+                        .withIgnoreNullValues()
+                        .withStringMatcher(ExampleMatcher.StringMatcher.EXACT));
+        return gvRepo.exists(example);
     }
 
     public List<BuoiHoc> findAllBuoiHoc() {
