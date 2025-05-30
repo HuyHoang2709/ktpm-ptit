@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -49,6 +50,7 @@ public class LenLichDayController {
         DangKyDay dkd = ld.getDangkyday();
         BuoiHoc bh = ld.getBuoihoc();
         PhongHoc ph = ld.getPhonghoc();
+        LocalDate ngay = ld.getNgay();
 
         // Kiểm tra xem đăng ký dạy có tồn tại trong hệ thống không
         if(!lldSv.existDangKyDay(dkd)) {
@@ -60,8 +62,14 @@ public class LenLichDayController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Không tồn tại buổi học trong CSDL");
         }
 
+        // Kiểm tra xem phòng học có tồn tại trong hệ thống không
         if(!lldSv.existPhongHoc(ph)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Không tồn tại phòng học trong CSDL");
+        }
+
+        // Kiểm tra xem có lịch dạy nào khác tại thời gian và địa điểm này chưa
+        if(lldSv.existLichDay(bh, ph, ngay)) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Đã có lịch dạy vào thời gian và địa điểm này");
         }
 
         try {
@@ -70,6 +78,41 @@ public class LenLichDayController {
         } catch (Exception e) {
             log.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{ldId}")
+    public ResponseEntity<?> xoaLichDay(@PathVariable int ldId) {
+        // Kiểm tra xem có lịch dạy cần xóa trong DB chưa
+        LichDay ld = lldSv.findLichDayById(ldId);
+        if(ld == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        // Xóa lịch dạy trong DB
+        try {
+            lldSv.deleteLichDay(ldId);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PutMapping("/edit")
+    public ResponseEntity<?> suaLichDay(@RequestBody LichDay ld) {
+        // Kiểm tra xem lịch dạy có trong DB chưa
+        if(lldSv.findLichDayById(ld.getId()) == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        // Thực hiện cập nhật trong DB
+        try {
+            LichDay updateLD = lldSv.updateGiaoVien(ld);
+            return ResponseEntity.ok().body(updateLD);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 }

@@ -9,7 +9,6 @@ const QuanLyGiaoVien = () => {
   const [listGV, setListGV] = useState();
 
   const handleDelete = async (gv) => {
-    console.log(gv);
     const confirmDelete = window.confirm(
       "Bạn chắc chắn muốn xóa giáo viên này?"
     );

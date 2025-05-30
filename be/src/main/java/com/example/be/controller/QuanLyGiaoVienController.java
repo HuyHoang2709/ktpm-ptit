@@ -70,7 +70,7 @@ public class QuanLyGiaoVienController {
 
     @DeleteMapping("/{gvId}")
     public ResponseEntity<?> xoaGiaoVien(@PathVariable int gvId) {
-        // Kiểm tra xem có giáo viên cần sửa trong DB chưa
+        // Kiểm tra xem có giáo viên cần xóa trong DB chưa
         GiaoVien gv = qlgvSv.findGiaoVienById(gvId);
         if (gv == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

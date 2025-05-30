@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LenLichDayService {
@@ -76,7 +77,24 @@ public class LenLichDayService {
         return phRepo.exists(example);
     }
 
+    public boolean existLichDay(BuoiHoc bh, PhongHoc ph, LocalDate ngay) {
+        Optional<LichDay> ld = ldRepo.findLichDaysByBuoihocAndPhonghocAndNgay(bh, ph, ngay);
+        return ld.isPresent();
+    }
+
     public LichDay createLichDay(LichDay ld) {
+        return ldRepo.save(ld);
+    }
+
+    public LichDay findLichDayById(int id) {
+        return ldRepo.findById(id).orElse(null);
+    }
+
+    public void deleteLichDay(int id) {
+        ldRepo.deleteById(id);
+    }
+
+    public LichDay updateGiaoVien(LichDay ld) {
         return ldRepo.save(ld);
     }
 }

@@ -114,13 +114,13 @@ const DanhSachLichDay = () => {
                 lichDay.length > 0 &&
                 lichDay.map((item) => item.buoihoc.id).includes(buoi.id) ? (
                   <Link
-                    to="/"
+                    to="/schedule/edit"
                     className="bg-blue-500 w-full p-6 flex flex-col justify-center items-center text-white"
                     state={{
+                      giaovien: giaovien,
                       lich: lichDay.find((lich) => lich.buoihoc.id == buoi.id),
                     }}
                   >
-                    <h3 className="text-lg font-semibold">Sửa lịch dạy</h3>
                     <ThongTinLichDay
                       lich={lichDay.find((lich) => lich.buoihoc.id == buoi.id)}
                     />

@@ -20,6 +20,9 @@ const Button = ({
   if (variants == "add") {
     styles = "bg-green-600 hover:bg-green-700 text-white";
   }
+  if (variants == "danger") {
+    styles = "bg-red-500 hover:bg-red-600 text-white";
+  }
 
   return isLink ? (
     <Link

@@ -85,7 +85,7 @@ const ChiTietLop = () => {
     <>
       <Title text="Thông tin lớp" className="mb-10" />
       <Card>
-        <div className="flex flex-col gap-2 text-lg">
+        <div className="flex flex-col gap-2">
           <p>
             <b>Tên lớp:</b> {lophoc.ten}
           </p>

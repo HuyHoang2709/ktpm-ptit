@@ -7,10 +7,10 @@ import Select from "../../components/Select";
 import Button from "../../components/Button";
 import toast from "react-hot-toast";
 
-const ThemLichDay = () => {
+const SuaLichDay = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { giaovien, buoihoc, ngay } = location.state || {};
+  const { giaovien, lich } = location.state || {};
   const [dsDangKyDay, setDsDangKyDay] = useState([]);
   const [dsPhongHoc, setDsPhongHoc] = useState([]);
   const [selectedDangKy, setSelectedDangKy] = useState();
@@ -34,32 +34,33 @@ const ThemLichDay = () => {
           throw new Error("Failed to fetch registration list");
         }
         const data1 = await response1.json();
-        setSelectedDangKy(data1[0]);
+        setSelectedDangKy(lich.dangkyday);
         setDsDangKyDay(data1);
 
         // Lấy danh sách phòng học khả dụng
         const response2 = await fetch(
-          `${import.meta.env.VITE_BASE_API}/lichday/phonghoc?ngay=${ngay}`,
+          `${import.meta.env.VITE_BASE_API}/lichday/phonghoc?ngay=${lich.ngay}`,
           {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(buoihoc),
+            body: JSON.stringify(lich.buoihoc),
           }
         );
         if (!response2.ok) {
           throw new Error("Failed to fetch available classrooms");
         }
         const data2 = await response2.json();
-        setSelectedPhong(data2[0]);
+        setSelectedPhong(lich.phonghoc);
+        data2.push(lich.phonghoc);
         setDsPhongHoc(data2);
       };
       fetchData();
     } catch (error) {
-      console.error("[NEW SCHEDULE]", error);
+      console.error("[EDIT SCHEDULE]", error);
     }
-  }, [giaovien, buoihoc, ngay]);
+  }, [giaovien, lich]);
 
   const handleChonDangKy = (e) => {
     const dangKyChon = dsDangKyDay.find(
@@ -73,62 +74,88 @@ const ThemLichDay = () => {
     setSelectedPhong(phongChon);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const lichDay = {
-      ngay: ngay,
-      dangkyday: selectedDangKy,
-      buoihoc: buoihoc,
-      phonghoc: selectedPhong,
-    };
-
+  const handleXoaLich = async () => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BASE_API}/lichday/new`,
+        `${import.meta.env.VITE_BASE_API}/lichday/${lich.id}`,
         {
-          method: "POST",
+          method: "DELETE",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(lichDay),
         }
       );
 
       if (response.status === 404) {
-        toast.error("Không tồn tại đăng ký dạy, buổi học hoặc phòng học");
+        toast.error("Không tìm thấy lịch dạy");
         return;
       }
-      if (response.status === 409) {
-        toast.error("Đã có lịch dạy tại thời gian và địa điểm này");
-        return;
-      }
-      if (!response.ok) {
-        throw new Error("Failed to create new schedule");
+      if (response.status !== 200) {
+        throw new Error("Failed to delete schedule");
       }
 
-      toast.success("Xếp lịch thành công");
+      toast.success("Xóa lịch dạy thành công");
       navigate("/schedule/view", {
         state: { giaovien },
       });
     } catch (error) {
-      console.error("[NEW SCHEDULE]", error);
+      toast.error("Không thể xóa lịch dạy");
+      console.error("[DELETE SCHEDULE]", error);
+    }
+  };
+
+  const handleLuu = async (e) => {
+    e.preventDefault();
+    const data = {
+      id: +lich.id,
+      ngay: lich.ngay,
+      buoihoc: lich.buoihoc,
+      dangkyday: selectedDangKy,
+      phonghoc: selectedPhong,
+    };
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BASE_API}/lichday/edit`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      if (response.status === 404) {
+        toast.error("Không tìm thấy lịch dạy");
+        return;
+      }
+      if (response.status !== 200) {
+        throw new Error("Failed to update schedule");
+      }
+
+      toast.success("Sửa lịch dạy thành công");
+      navigate("/schedule/view", {
+        state: { giaovien },
+      });
+    } catch (error) {
+      toast.error("Không thể sửa lịch dạy");
+      console.error("[EDIT SCHEDULE]", error);
     }
   };
 
   return (
     <>
-      <Title text="Thêm lịch dạy mới" className="mb-10" />
+      <Title text="Sửa lịch dạy" className="mb-10" />
       <Card className="flex flex-col gap-2 mb-10">
         <p>
           <b>Giáo viên:</b> {giaovien.hoten}
         </p>
         <p>
           <b>Ngày: </b>
-          {new Date(ngay).toLocaleDateString("vi-VN")}
+          {new Date(lich.ngay).toLocaleDateString("vi-VN")}
         </p>
         <p>
-          <b>Thời gian:</b> {buoihoc.mota}
+          <b>Thời gian:</b> {lich.buoihoc.mota}
         </p>
       </Card>
       <form className="flex flex-col gap-4">
@@ -174,9 +201,14 @@ const ThemLichDay = () => {
             Quay lại
           </Button>
           {dsDangKyDay.length > 0 && dsPhongHoc.length > 0 && (
-            <Button type="submit" variants="primary" onClick={handleSubmit}>
-              Xếp lịch
-            </Button>
+            <div className="flex gap-2">
+              <Button type="button" variants="danger" onClick={handleXoaLich}>
+                Xóa
+              </Button>
+              <Button type="submit" variants="primary" onClick={handleLuu}>
+                Lưu
+              </Button>
+            </div>
           )}
         </div>
       </form>
@@ -184,4 +216,4 @@ const ThemLichDay = () => {
   );
 };
 
-export default ThemLichDay;
+export default SuaLichDay;
