@@ -8,7 +8,7 @@ import ThemGiaoVien from "./pages/QuanLyGiaoVien/ThemGiaoVien";
 import SuaGiaoVien from "./pages/QuanLyGiaoVien/SuaGiaoVien";
 import ChonLop from "./pages/DangKyDay/ChonLop";
 import ChiTietLop from "./pages/DangKyDay/ChiTietLop";
-import ChonGiaoVien from "./pages/LenLichDay/ChonGiaoVien";
+import ChonLopXepLich from "./pages/LenLichDay/ChonLopXepLich";
 import DanhSachLichDay from "./pages/LenLichDay/DanhSachLichDay";
 import ThemLichDay from "./pages/LenLichDay/ThemLichDay";
 import SuaLichDay from "./pages/LenLichDay/SuaLichDay";
@@ -26,7 +26,7 @@ const App = () => {
             <Route path="/teachers/edit" element={<SuaGiaoVien />} />
             <Route path="/teach-register" element={<ChonLop />} />
             <Route path="/teach-register/info" element={<ChiTietLop />} />
-            <Route path="/schedule/teacher" element={<ChonGiaoVien />} />
+            <Route path="/schedule/class" element={<ChonLopXepLich />} />
             <Route path="/schedule/view" element={<DanhSachLichDay />} />
             <Route path="/schedule/new" element={<ThemLichDay />} />
             <Route path="/schedule/edit" element={<SuaLichDay />} />

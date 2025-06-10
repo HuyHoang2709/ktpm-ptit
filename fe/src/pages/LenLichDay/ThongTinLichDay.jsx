@@ -1,7 +1,7 @@
 export const ThongTinLichDay = ({ lich }) => {
   return (
     <p className="font-semibold text-lg">
-      Lớp {lich.dangkyday.lophoc.ten} ({lich.phonghoc.ten})
+      Giáo viên {lich.dangkyday.giaovien.hoten} ({lich.phonghoc.ten})
     </p>
   );
 };

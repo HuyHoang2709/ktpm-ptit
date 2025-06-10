@@ -5,6 +5,9 @@ const Select = ({ options, value, onChange = () => {} }) => {
       onChange={onChange}
       className="border border-slate-300 outline-0 rounded-lg py-2 px-4"
     >
+      <option value="" disabled>
+        Chọn
+      </option>
       {options.map((option) => (
         <option key={option} value={option}>
           {option}

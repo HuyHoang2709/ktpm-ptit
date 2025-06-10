@@ -88,7 +88,7 @@ export const Sidebar = ({ user }) => {
               <span>Quản lý giáo viên</span>
             </Link>
             <Link
-              to="/schedule/teacher"
+              to="/schedule/class"
               className={
                 "py-3 px-4 rounded hover:bg-blue-500 hover:text-white transition-all flex gap-2 items-center font-semibold"
               }
